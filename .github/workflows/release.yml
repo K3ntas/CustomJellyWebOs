@@ -51,10 +51,10 @@ jobs:
       - name: Build IPK package
         run: npm run package
 
-      - name: Rename IPK with version
+      - name: List IPK files
         run: |
-          cd build
-          mv *.ipk ${APP_ID}_${{ steps.version.outputs.VERSION }}_all.ipk
+          ls -la build/
+          echo "IPK files ready for upload"
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
