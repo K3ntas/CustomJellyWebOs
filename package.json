@@ -1,7 +1,7 @@
 {
-  "name": "org.jellyfin.webos",
-  "version": "1.2.2",
-  "description": "Jellyfin WebOS client",
+  "name": "org.jellyfin.webos.netflix",
+  "version": "2.0.0",
+  "description": "Jellyfin WebOS client with Netflix-style UI and ASS subtitle support",
   "scripts": {
     "check": "ares-package --check",
     "package": "ares-package --no-minify --outdir build/ services frontend",
@@ -16,5 +16,8 @@
   "license": "MPL-2.0",
   "devDependencies": {
     "@webosose/ares-cli": "^2.4.0"
+  },
+  "dependencies": {
+    "libass-wasm": "^4.1.0"
   }
 }

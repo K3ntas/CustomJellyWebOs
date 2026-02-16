@@ -1,0 +1,141 @@
+/* SubtitlesOctopus Canvas Overlay Styles */
+
+/* Subtitle canvas container */
+.subtitles-octopus-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+/* The subtitle canvas itself */
+.libassjs-canvas-parent {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    pointer-events: none !important;
+    z-index: 1001 !important;
+}
+
+.libassjs-canvas {
+    pointer-events: none !important;
+}
+
+/* Video container adjustments for subtitle overlay */
+.videoPlayerContainer {
+    position: relative;
+}
+
+/* Ensure video doesn't overlap subtitles */
+video {
+    position: relative;
+    z-index: 1;
+}
+
+/* Subtitle settings panel enhancements */
+.subtitleSettingsContainer {
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* ASS subtitle indicator */
+.subtitle-format-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-left: 8px;
+}
+
+.subtitle-format-badge.ass,
+.subtitle-format-badge.ssa {
+    background: #9b59b6;
+    color: #ffffff;
+}
+
+.subtitle-format-badge.srt {
+    background: #3498db;
+    color: #ffffff;
+}
+
+.subtitle-format-badge.vtt {
+    background: #2ecc71;
+    color: #ffffff;
+}
+
+/* Subtitle track selection enhancements */
+.subtitleTrackOption {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #1a1a1a;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 200ms ease;
+}
+
+.subtitleTrackOption:hover,
+.subtitleTrackOption:focus {
+    background: #2a2a2a;
+}
+
+.subtitleTrackOption.selected {
+    background: #333;
+    border-left: 4px solid #e50914;
+}
+
+.subtitleTrackInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.subtitleTrackName {
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.subtitleTrackLanguage {
+    color: #888;
+    font-size: 13px;
+}
+
+/* Playback indicator for ASS rendering */
+.ass-rendering-indicator {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(155, 89, 182, 0.8);
+    color: #ffffff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 300ms ease;
+    z-index: 1002;
+}
+
+.ass-rendering-indicator.visible {
+    opacity: 1;
+}
+
+/* Performance warning */
+.subtitle-perf-warning {
+    background: rgba(231, 76, 60, 0.9);
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-top: 8px;
+}

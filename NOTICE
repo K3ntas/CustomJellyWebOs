@@ -1,0 +1,19 @@
+Jellyfin Netflix webOS
+Copyright 2024 CustomJellyWebOs Contributors
+
+This product includes software developed by:
+
+- The Jellyfin Project (https://jellyfin.org/)
+  Original webOS client licensed under MPL-2.0
+
+- JavascriptSubtitlesOctopus Contributors
+  ASS/SSA subtitle rendering library licensed under LGPL-2.1
+  https://github.com/libass/JavascriptSubtitlesOctopus
+
+- LG Electronics
+  webOSTV.js SDK licensed under Apache-2.0
+
+For full license texts and third-party attribution, see:
+- LICENSE (MPL-2.0)
+- THIRD_PARTY_LICENSES.md
+- frontend/custom/lib/COPYRIGHT

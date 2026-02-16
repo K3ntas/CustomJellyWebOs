@@ -1,0 +1,254 @@
+/* Custom TV Keyboard Styles - Netflix-inspired */
+
+/* Search overlay container */
+.tv-search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: none;
+    flex-direction: row;
+    padding: 40px;
+}
+
+.tv-search-overlay.active {
+    display: flex;
+}
+
+/* Left panel - keyboard */
+.tv-search-keyboard-panel {
+    flex: 0 0 500px;
+    display: flex;
+    flex-direction: column;
+    padding-right: 40px;
+}
+
+/* Right panel - results */
+.tv-search-results-panel {
+    flex: 1;
+    overflow-y: auto;
+    padding-left: 40px;
+    border-left: 1px solid #333;
+}
+
+/* Search input field */
+.tv-search-input-container {
+    margin-bottom: 30px;
+}
+
+.tv-search-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 24px;
+    background: #1a1a1a;
+    border: 2px solid #333;
+    border-radius: 8px;
+    color: #ffffff;
+    outline: none;
+    transition: border-color 200ms ease;
+}
+
+.tv-search-input:focus {
+    border-color: #e50914;
+}
+
+.tv-search-input::placeholder {
+    color: #666;
+}
+
+/* Keyboard container */
+.tv-keyboard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Keyboard row */
+.tv-keyboard-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Individual key */
+.tv-key {
+    min-width: 48px;
+    height: 48px;
+    background: #2a2a2a;
+    border: 2px solid #3a3a3a;
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 150ms ease;
+    outline: none;
+}
+
+.tv-key:hover {
+    background: #3a3a3a;
+}
+
+.tv-key:focus,
+.tv-key.focused {
+    background: #e50914;
+    border-color: #ff1a1a;
+    transform: scale(1.1);
+    box-shadow: 0 4px 15px rgba(229, 9, 20, 0.5);
+}
+
+/* Special keys */
+.tv-key.space {
+    flex: 3;
+    min-width: 180px;
+}
+
+.tv-key.backspace,
+.tv-key.clear {
+    flex: 1.5;
+    min-width: 80px;
+    font-size: 14px;
+}
+
+.tv-key.backspace {
+    background: #333;
+}
+
+.tv-key.clear {
+    background: #333;
+}
+
+.tv-key.backspace:focus,
+.tv-key.clear:focus {
+    background: #e50914;
+}
+
+/* Search results */
+.tv-search-results-title {
+    color: #888;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.tv-search-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+}
+
+.tv-search-result-item {
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 200ms ease, box-shadow 200ms ease;
+    outline: none;
+}
+
+.tv-search-result-item:focus,
+.tv-search-result-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+}
+
+.tv-search-result-item:focus {
+    outline: 3px solid #e50914;
+    outline-offset: 2px;
+}
+
+.tv-search-result-poster {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    background: #2a2a2a;
+}
+
+.tv-search-result-info {
+    padding: 12px;
+}
+
+.tv-search-result-title {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tv-search-result-type {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 2px 8px;
+    background: #e50914;
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.tv-search-result-type.series {
+    background: #0066cc;
+}
+
+/* No results message */
+.tv-search-no-results {
+    color: #888;
+    font-size: 18px;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+/* Loading spinner */
+.tv-search-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+.tv-search-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #333;
+    border-top-color: #e50914;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Close button */
+.tv-search-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 48px;
+    height: 48px;
+    background: #333;
+    border: none;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 200ms ease;
+}
+
+.tv-search-close:focus,
+.tv-search-close:hover {
+    background: #e50914;
+}

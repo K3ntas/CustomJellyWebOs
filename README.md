@@ -1,95 +1,130 @@
+# Jellyfin Netflix webOS
 
-# Jellyfin for webOS
-This is a small wrapper around the web interface provided by the server (https://github.com/jellyfin/jellyfin-web) so most of the development happens there.
+A custom Jellyfin client for LG webOS TVs with Netflix-style UI, full ASS/SSA subtitle support, and more.
 
+![Version](https://img.shields.io/badge/version-2.0.0-blue)
+![webOS](https://img.shields.io/badge/webOS-3.0%2B-green)
+![License](https://img.shields.io/badge/license-MPL--2.0-orange)
 
-## Download
+## Features
 
-For all versions:
-<p align="center">
-<a href="https://us.lgappstv.com/main/tvapp/detail?appId=1030579"><img alt="Enjoy on LG Smart TV" src="https://repo.jellyfin.org/releases/other/lg-badge/LG_BADGE_greyborders_135x40.png"/></a>
-<br/>
-<em><strong>Note:</strong> If you previously installed the app via Homebrew or Developer mode, you must uninstall that before you can use the store version.</em>
-</p>
+### ASS/SSA Subtitle Support
+Full styling support for anime and other content with styled subtitles - no server transcoding needed!
+- Uses [SubtitlesOctopus](https://github.com/libass/JavascriptSubtitlesOctopus) (libass WebAssembly)
+- Preserves fonts, colors, positioning, and animations
+- Canvas overlay rendering for best quality
 
+### Netflix-Style Card Focus
+Smooth, beautiful card animations when browsing:
+- Scale animation on focus (1.1x)
+- Dark gradient overlay with title
+- Rating badge display
+- Watch progress indicator
+- Watched/Unplayed badges
+
+### Custom TV Keyboard
+No more system keyboard covering the screen:
+- Grid-based QWERTY layout
+- Full D-pad remote navigation
+- Netflix-style red focus highlight
+- Real-time search with results grid
+- 300ms debounce for smooth typing
+
+### Ratings Plugin Integration
+Rate your content directly from detail screens:
+- 10-star interactive rating system
+- Hover preview as you navigate
+- Community average and count display
+- Requires [Jellyfin Ratings Plugin](https://github.com/user/jellyfin-ratings-plugin) on server
+
+## Screenshots
+
+*Coming soon*
+
+## Installation
+
+### Quick Install
+
+1. Download the latest IPK from [Releases](https://github.com/user/CustomJellyWebOs/releases)
+2. Enable Developer Mode on your LG TV
+3. Install via ares-cli:
+
+```bash
+npm install -g @webosose/ares-cli
+ares-setup-device
+ares-novacom --device tv --getkey
+ares-install -d tv org.jellyfin.webos.netflix_2.0.0_all.ipk
+```
+
+See [INSTALL.md](INSTALL.md) for detailed instructions.
+
+### Build from Source
+
+```bash
+git clone https://github.com/user/CustomJellyWebOs.git
+cd CustomJellyWebOs
+npm install
+npm run package
+```
+
+## Requirements
+
+- **TV**: LG webOS 3.0+ (2016 or newer)
+- **Server**: Jellyfin 10.8.0+
+- **Optional**: Jellyfin Ratings Plugin for rating feature
+
+## Configuration
+
+Features can be toggled in the injected configuration:
+
+```javascript
+window.JellyfinNetflixConfig = {
+    enableNetflixCards: true,      // Card focus overlays
+    enableTVKeyboard: true,        // Custom search keyboard
+    enableRatings: true,           // Ratings plugin support
+    enableSubtitlesOctopus: true,  // ASS/SSA subtitles
+    debug: false                   // Debug logging
+};
+```
+
+## Project Structure
+
+```
+frontend/
+├── custom/
+│   ├── css/           # Custom stylesheets
+│   ├── js/            # Feature modules
+│   ├── lib/           # SubtitlesOctopus library
+│   └── fonts/         # Custom fonts (optional)
+├── js/                # Core webOS adapter
+└── css/               # Core styles
+```
+
+## Documentation
+
+- [Installation Guide](INSTALL.md)
+- [Custom Changes](CUSTOM_CHANGES.md)
+
+## Contributing
+
+Contributions are welcome! Please:
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## Credits
+
+- [Jellyfin](https://jellyfin.org/) - The original media server
+- [jellyfin-webos](https://github.com/jellyfin/jellyfin-webos) - Original webOS client
+- [SubtitlesOctopus](https://github.com/libass/JavascriptSubtitlesOctopus) - ASS subtitle rendering
+- [webOS Homebrew](https://www.webosbrew.org/) - webOS development community
 
 ## License
-All Jellyfin webOS code is licensed under the MPL 2.0 license, some parts incorporate content licensed under the Apache 2.0 license. All images are taken from and licensed under the same license as https://github.com/jellyfin/jellyfin-ux.
+
+This project is licensed under the MPL-2.0 License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## Development
-
-The general development workflow looks like this:
-
-- Prepare a build environment of your choice (see below)
-- Compile an IPK either with the IDE or with ares-package
-- Test the app on the emulator or ares-server or install it on your tv by following http://webostv.developer.lge.com/develop/app-test/
-
-There are three ways to create the required build environment:
-
-- Full WebOS SDK Installation
-- Docker
-- NPM ares-cli
-
-### Full WebOS SDK Installation
-
-- Install the WebOS SDK from http://webostv.developer.lge.com/sdk/installation/
-
-### Docker
-
-A prebuilt docker image is available that includes the build and deployment dependencies, see [Docker Hub](https://ghcr.io/oddstr13/docker-tizen-webos-sdk).
-
-### Managing the ares-tools via npm
-
-This requires `npm`, the Node.js package manager.
-
-Execute the following to install the required WebOS toolkit for building & deployment:
-
-`npm install`
-
-Now you can package the app by running:
-
-`npm run package`
-
-## Building with Docker or WebOS SDK
-
-`dev.sh` is a wrapper around the Docker commands. If you have installed the SDK directly, just omit that part.
-
-```sh
-# Build the package via Docker
-./dev.sh ares-package --no-minify services frontend
-# Build the package with natively installed WebOS SDK
-ares-package --no-minify services frontend
-```
-
-## Usage
-Fill in your hostname, port, and schema and click connect. The app will check for a server by grabbing the manifest and the public serverinfo.
-Afterwards, the app hands off control to the hosted webUI.
-
-
-## Testing
-Testing on a TV requires [registering a LG developer account](https://webostv.developer.lge.com/develop/app-test/preparing-account/) and [setting up the devmode app](https://webostv.developer.lge.com/develop/app-test/using-devmode-app/).
-
-Once you have installed the devmode app on your target TV and logged in with your LG developer account, you need to turn on the `Dev Mode Status` and `Key Server`.
-**Make sure** to take a note of the passphrase.
-
-```sh
-# Add your TV. The defaults are fine, but I recommend naming it `tv`.
-./dev.sh ares-setup-device --search
-
-# This command sets up the SSH key for the device `tv` (Key Server must be running)
-./dev.sh ares-novacom --device tv --getkey
-
-# Run this command to verify that things are working.
-./dev.sh ares-device-info -d tv
-
-# This command installs the app. Remember to build it first.
-./dev.sh ares-install -d tv org.jellyfin.webos_*.ipk
-
-# Launch the app and the web developer console.
-./dev.sh ares-inspect -d tv org.jellyfin.webos
-
-# Or just launch the app.
-./dev.sh ares-launch -d tv org.jellyfin.webos
-```
+**Note**: This is an unofficial fork. For the official Jellyfin webOS client, visit [jellyfin/jellyfin-webos](https://github.com/jellyfin/jellyfin-webos).

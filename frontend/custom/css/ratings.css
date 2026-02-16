@@ -1,0 +1,147 @@
+/* Custom Ratings Plugin Styles */
+
+/* Rating container on detail screens */
+.custom-rating-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+/* Star rating row */
+.custom-rating-stars {
+    display: flex;
+    gap: 4px;
+}
+
+/* Individual star button */
+.custom-rating-star {
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: #4a4a4a;
+    transition: color 150ms ease, transform 150ms ease;
+    outline: none;
+    padding: 0;
+}
+
+.custom-rating-star:focus {
+    transform: scale(1.2);
+}
+
+/* Empty star */
+.custom-rating-star.empty {
+    color: #4a4a4a;
+}
+
+/* Filled star (community average) */
+.custom-rating-star.filled {
+    color: #8b7355;
+}
+
+/* User rated star */
+.custom-rating-star.user-rated {
+    color: #ffd700;
+}
+
+/* Hover preview star */
+.custom-rating-star.preview {
+    color: #ffd700;
+}
+
+/* Focused star */
+.custom-rating-star:focus {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Rating statistics */
+.custom-rating-stats {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #888;
+    font-size: 14px;
+}
+
+.custom-rating-average {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.custom-rating-count {
+    color: #666;
+}
+
+/* User's current rating */
+.custom-rating-user {
+    color: #888;
+    font-size: 13px;
+}
+
+.custom-rating-user strong {
+    color: #ffd700;
+}
+
+/* Loading state */
+.custom-rating-loading {
+    color: #666;
+    font-style: italic;
+}
+
+/* Error state */
+.custom-rating-error {
+    color: #e50914;
+    font-size: 13px;
+}
+
+/* Compact rating display (for cards) */
+.custom-rating-compact {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+}
+
+.custom-rating-compact .star {
+    color: #ffd700;
+}
+
+.custom-rating-compact .rating-value {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Rating tooltip */
+.custom-rating-tooltip {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.9);
+    color: #ffffff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 14px;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+    margin-bottom: 8px;
+}
+
+.custom-rating-star:focus .custom-rating-tooltip {
+    opacity: 1;
+}
+
+/* Delete rating hint */
+.custom-rating-delete-hint {
+    color: #888;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 4px;
+}

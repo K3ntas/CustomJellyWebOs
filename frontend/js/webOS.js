@@ -1,14 +1,15 @@
-/* 
+/*
  * This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  *
+ * Modified for Jellyfin Netflix webOS with custom features
 */
 
 (function(AppInfo, deviceInfo) {
     'use strict';
 
-    console.log('WebOS adapter');
+    console.log('WebOS Netflix adapter - v2.0.0');
 
     function postMessage(type, data) {
         window.top.postMessage({

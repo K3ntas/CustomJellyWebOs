@@ -1,0 +1,171 @@
+/* Netflix-Style Card Focus Overlay */
+
+/* Override default card styling */
+.card {
+    position: relative;
+    transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+    overflow: visible !important;
+}
+
+.card:focus,
+.card.focused {
+    transform: scale(1.1);
+    z-index: 100;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8);
+}
+
+/* Card image container */
+.cardImageContainer {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Netflix-style overlay container */
+.netflix-card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.7) 50%, transparent 100%);
+    padding: 40px 12px 12px 12px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 200ms ease-out, transform 200ms ease-out;
+    pointer-events: none;
+}
+
+.card:focus .netflix-card-overlay,
+.card.focused .netflix-card-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Title text */
+.netflix-card-title {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+/* Marquee animation for long titles on focus */
+.card:focus .netflix-card-title.marquee,
+.card.focused .netflix-card-title.marquee {
+    animation: marquee 8s linear infinite;
+    animation-delay: 1s;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Rating badge overlay (top-left) */
+.netflix-rating-badge {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #ffd700;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    opacity: 0;
+    transition: opacity 200ms ease-out;
+}
+
+.card:focus .netflix-rating-badge,
+.card.focused .netflix-rating-badge {
+    opacity: 1;
+}
+
+.netflix-rating-badge .star {
+    color: #ffd700;
+}
+
+/* Watch progress indicator (bottom) */
+.netflix-progress-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.netflix-progress-bar .progress {
+    height: 100%;
+    background: #e50914;
+    transition: width 300ms ease-out;
+}
+
+/* Watched indicator (checkmark) */
+.netflix-watched-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.75);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #46d369;
+    font-size: 14px;
+}
+
+/* Unplayed count badge */
+.netflix-unplayed-badge {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    min-width: 24px;
+    height: 24px;
+    background: #e50914;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 0 6px;
+}
+
+/* Focus ring for accessibility */
+.card:focus {
+    outline: 3px solid #e50914;
+    outline-offset: 4px;
+}
+
+/* Row styling for horizontal scrolling */
+.itemsContainer {
+    scroll-behavior: smooth;
+}
+
+/* Genre row headers */
+.sectionTitle {
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    padding-left: 16px;
+}
+
+/* Dark theme enforcement */
+body, html {
+    background-color: #141414 !important;
+}
+
+.skinBody {
+    background-color: #141414 !important;
+}

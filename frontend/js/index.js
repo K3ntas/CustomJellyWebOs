@@ -421,7 +421,22 @@ function loadUrl(url, success, failure) {
 function getTextToInject(success, failure) {
     var bundle = {};
 
-    var urls = ['js/webOS.js', 'css/webOS.css'];
+    // Original webOS files + custom Netflix-style features
+    var urls = [
+        // Core webOS adapter
+        'js/webOS.js',
+        'css/webOS.css',
+        // Custom CSS
+        'custom/css/netflix-cards.css',
+        'custom/css/tv-keyboard.css',
+        'custom/css/ratings.css',
+        'custom/css/subtitles.css',
+        // Custom JavaScript modules
+        'custom/js/netflix-cards.js',
+        'custom/js/tv-keyboard.js',
+        'custom/js/ratings.js',
+        'custom/js/subtitles-octopus-integration.js'
+    ];
 
     // imitate promises as they're borked in at least WebOS 2
     var looper = function (idx) {
@@ -433,7 +448,11 @@ function getTextToInject(success, failure) {
             loadUrl(url, function (data) {
                 bundle[ext] = (bundle[ext] || '') + data;
                 looper(idx + 1);
-            }, failure);
+            }, function(err) {
+                // Continue even if custom files fail to load
+                console.warn('Failed to load: ' + url);
+                looper(idx + 1);
+            });
         }
     };
     looper(0);
@@ -446,10 +465,23 @@ function injectScriptText(document, text) {
     document.head.appendChild(script);
 }
 
+function injectScriptSrc(document, src) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = src;
+    document.head.appendChild(script);
+}
+
 function injectStyleText(document, text) {
     var style = document.createElement('style');
     style.innerHTML = text;
     document.body.appendChild(style);
+}
+
+function getAbsoluteUrl(relativePath) {
+    // Get the base URL of the current page
+    var baseUrl = window.location.href.replace(/\/[^\/]*$/, '/');
+    return baseUrl + relativePath;
 }
 
 function handoff(url, bundle) {
@@ -472,6 +504,9 @@ function handoff(url, bundle) {
         injectScriptText(contentFrame.contentDocument, 'window.AppInfo = ' + JSON.stringify(appInfo) + ';');
         injectScriptText(contentFrame.contentDocument, 'window.DeviceInfo = ' + JSON.stringify(deviceInfo) + ';');
 
+        // Inject SubtitlesOctopus library via script tag (needs to be loaded as file, not inline)
+        injectScriptSrc(contentFrame.contentDocument, getAbsoluteUrl('custom/lib/subtitles-octopus.js'));
+
         if (bundle.js) {
             injectScriptText(contentFrame.contentDocument, bundle.js);
         }
@@ -479,6 +514,8 @@ function handoff(url, bundle) {
         if (bundle.css) {
             injectStyleText(contentFrame.contentDocument, bundle.css);
         }
+
+        console.log('Jellyfin Netflix webOS - Custom features injected');
     }
 
     function onUnload() {
